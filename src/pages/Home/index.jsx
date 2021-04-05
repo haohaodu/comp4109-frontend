@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import axios from "axios";
 import crypto from "crypto";
+import store from "storejs";
 
 import PrimaryButton from "components/PrimaryButton";
 import { Page, Candidates } from "constants/general";
@@ -41,6 +42,7 @@ const useStyles = makeStyles((theme) => ({
 const Home = (props) => {
   const classes = useStyles();
   const [candidate, setCandidate] = useState("");
+  const [currUser, setCurrUser] = useState(store.get("currentUser"));
 
   const handleVote = () => {
     const hash = crypto
@@ -60,7 +62,15 @@ const Home = (props) => {
           "Access-Control-Allow-Origin": true,
         },
       })
-      .then((res) => console.log("success: ", res))
+      .then(() => {
+        axios.get("http://localhost:5000/mine", {
+          headers: {
+            crossDomain: true,
+            "Access-Control-Allow-Origin": true,
+          },
+        });
+      })
+      .then(() => console.log("vote successfully mined."))
       .catch((e) => console.log("error: ", e));
   };
 
@@ -81,6 +91,9 @@ const Home = (props) => {
           ))}
         </div>
         <div className={classes.voteWrapper}>
+          <SubTitle>
+            Currently Logged in as: {currUser.firstName} {currUser.lastName}
+          </SubTitle>
           <SubTitle>Selected Candidate: {candidate}</SubTitle>
           <PrimaryButton handleClick={handleVote} buttonText="Submit Vote" />
         </div>

@@ -32,10 +32,6 @@ export const HeaderOptions = [
     route: "settings",
   },
   {
-    title: "PROFILE",
-    route: "profile",
-  },
-  {
     title: "LOGOUT",
     route: "logout",
   },

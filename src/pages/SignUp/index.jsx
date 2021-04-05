@@ -6,17 +6,19 @@ import SideImage from "components/SideImage";
 import LoginHeader from "components/LoginHeader";
 import LoginForm from "components/LoginForm";
 import { Page } from "constants/general";
+import GoogleCreate from "components/GoogleLogin";
 
 import { useHistory } from "react-router-dom";
 
 const Login = (props) => {
   const history = useHistory();
 
-  const handleCreate = () => {
-    history.push("/signup");
+  const handleLogin = () => {
+    history.push("/");
+    GoogleCreate();
   };
 
-  const handleLogin = (e) => {
+  const handleCreate = (e) => {
     history.push("/home");
   };
 
@@ -24,18 +26,18 @@ const Login = (props) => {
     <Page>
       <SideImage primaryImage={Icon} marketingText={"SimplyVote"} />
       <LoginHeader
-        fadedText="DON'T HAVE AN ACCOUNT?"
-        actionText="CREATE ACCOUNT"
-        onClick={handleCreate}
+        fadedText="ALREADY HAVE ONE?"
+        actionText="LOGIN TO YOUR ACCOUNT"
+        onClick={handleLogin}
       />
       <LoginForm
         header="Welcome back!"
         showConfirmPassword={false}
         showUsername={false}
-        onClick={handleLogin}
+        onClick={handleCreate}
         loginText="Login"
         snackBar="Login Successful."
-        login={true}
+        login={false}
       />
     </Page>
   );

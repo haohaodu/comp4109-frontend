@@ -5,6 +5,7 @@ import Button from "@material-ui/core/Button";
 import { makeStyles } from "@material-ui/core/styles";
 import { fontWeightBold } from "constants/font";
 import { HeaderOptions } from "constants/general";
+import GoogleLogout from "components/GoogleLogout";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,16 +29,20 @@ const Header = (props) => {
 
   return (
     <div className={classes.root}>
-      {HeaderOptions.map((element) => (
-        <Button
-          className={classes.headerButton}
-          color="primary"
-          onClick={props.onClick}
-          key={element.route}
-        >
-          {element.title}
-        </Button>
-      ))}
+      {HeaderOptions.map((element) => {
+        return element.title === "LOGOUT" ? (
+          <GoogleLogout key={element.title} />
+        ) : (
+          <Button
+            className={classes.headerButton}
+            color="primary"
+            onClick={props.onClick}
+            key={element.route}
+          >
+            {element.title}
+          </Button>
+        );
+      })}
     </div>
   );
 };
